@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'it_pricing_card.dart';
+import 'home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-  debugShowCheckedModeBanner: false,
-  title: 'Kartu Harga IT',
-  theme: ThemeData(
-    fontFamily: 'Times New Roman',
-    scaffoldBackgroundColor: Colors.grey.shade200,
-  ),
-  home: const PricingDemoPage(),
-);
+      debugShowCheckedModeBanner: false,
+      title: 'Paket Harga IT',
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.grey.shade200,
+      ),
+      home: const HomePage(),
+    );
   }
 }

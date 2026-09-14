@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Widget Kartu Harga Layanan IT (Tiered Pricing Card)
-/// Sesuai spesifikasi:
-/// - Layer Dasar: Container statis, putih, border-radius, shadow
-/// - Badge Melayang: Stack + Positioned untuk badge "Rekomendasi"
-/// - Header Paket: Column (ikon, nama paket, deskripsi)
-/// - Harga & Durasi: Row dengan alignment baseline
-/// - Daftar Fitur: Column berisi beberapa Row (icon check + text)
-/// - Tombol CTA: ElevatedButton full width
-
 class ITPricingCard extends StatelessWidget {
   final IconData icon;
   final String packageName;
@@ -33,31 +24,27 @@ class ITPricingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ----- LAYER DASAR (Pembungkus Utama) -----
     return Container(
-      width: double.infinity, // lebar mengikuti parent (responsif)
+      width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha: 0.15),
             blurRadius: 12,
             offset: const Offset(0, 6),
           ),
         ],
       ),
-      // ----- BADGE MELAYANG (Stack) -----
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          // Elemen utama kartu diletakkan di lapisan bawah
           Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ----- HEADER PAKET (Column) -----
                 Icon(icon, size: 48, color: Colors.pink.shade400),
                 const SizedBox(height: 12),
                 Text(
@@ -77,8 +64,6 @@ class ITPricingCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-
-                // ----- HARGA & DURASI (Row) -----
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.alphabetic,
@@ -100,10 +85,7 @@ class ITPricingCard extends StatelessWidget {
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 20), // jarak kosong (SizedBox)
-
-                // ----- DAFTAR FITUR LAYANAN (Column & Row) -----
+                const SizedBox(height: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: features
@@ -131,10 +113,7 @@ class ITPricingCard extends StatelessWidget {
                       )
                       .toList(),
                 ),
-
                 const SizedBox(height: 20),
-
-                // ----- TOMBOL CALL-TO-ACTION (Fleksibilitas) -----
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -159,8 +138,6 @@ class ITPricingCard extends StatelessWidget {
               ],
             ),
           ),
-
-          // Badge "Rekomendasi" menggunakan Positioned
           if (isRecommended)
             Positioned(
               top: 12,
@@ -185,62 +162,6 @@ class ITPricingCard extends StatelessWidget {
               ),
             ),
         ],
-      ),
-    );
-  }
-}
-
-// ================== CONTOH PENGGUNAAN ==================
-class PricingDemoPage extends StatelessWidget {
-  const PricingDemoPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppBar(
-        title: const Text('Kartu Harga IT'),
-        backgroundColor: Colors.pink.shade400,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        // scroll VERTIKAL, dipaksa aktif walau konten pas-pasan
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ITPricingCard(
-              icon: Icons.laptop_mac,
-              packageName: 'Paket Dasar',
-              description: 'Cocok untuk kebutuhan bisnis skala kecil.',
-              price: 'Rp 2.500.000',
-              duration: '/ proyek',
-              features: const [
-                'Desain UI/UX Sederhana',
-                'Setup Database Dasar',
-                'Support 1 Bulan',
-              ],
-              onPressed: () {},
-            ),
-            const SizedBox(height: 20), // jarak antar kartu (vertikal)
-            ITPricingCard(
-              icon: Icons.smartphone,
-              packageName: 'Paket Profesional',
-              description: 'Solusi lengkap untuk bisnis berkembang.',
-              price: 'Rp 5.000.000',
-              duration: '/ proyek',
-              features: const [
-                'Desain UI/UX Khusus',
-                'Setup Database',
-                'Integrasi API',
-                'Support 3 Bulan',
-              ],
-              isRecommended: true,
-              onPressed: () {},
-            ),
-          ],
-        ),
       ),
     );
   }
